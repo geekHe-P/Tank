@@ -18,6 +18,8 @@ public class TankFrame extends Frame {
        setTitle("TankWar");
        setVisible(true);
 
+        System.out.println("sadf");
+
        addKeyListener(new MyKeyListener());
 
        addWindowListener(new WindowAdapter() {
