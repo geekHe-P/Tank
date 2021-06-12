@@ -19,6 +19,7 @@ public class TankFrame extends Frame {
        setVisible(true);
 
         System.out.println("sadf");
+        System.out.println("sadf");
 
        addKeyListener(new MyKeyListener());
 
