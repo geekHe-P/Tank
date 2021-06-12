@@ -13,14 +13,6 @@ public class Bullet {
         this.dir = dir;
     }
 
-    public Dir getDir() {
-        return dir;
-    }
-
-    public void setDir(Dir dir) {
-        this.dir = dir;
-    }
-
     private Dir dir = Dir.DOWN;
 
     public void paint(Graphics g) {
