@@ -1,5 +1,6 @@
 import java.awt.*;
 import java.awt.event.*;
+import java.util.ArrayList;
 
 public class TankFrame extends Frame {
 
@@ -13,7 +14,8 @@ public class TankFrame extends Frame {
     private static final int HEIGHT = 600;
 
     Tank tank = new Tank(200, 200, dir, this);
-    Bullet bullet = new Bullet(30, 30, dir);
+    ArrayList<Bullet> bulletList = new ArrayList<Bullet>();
+    //Bullet bullet = new Bullet(30, 30, dir);
 
     //新建窗口
     public TankFrame() {
@@ -51,8 +53,21 @@ public class TankFrame extends Frame {
     //绘画坦克和子弹
     @Override
     public void paint(Graphics g) {
+        Color color = g.getColor();
+        g.setColor(Color.WHITE);
+        g.drawString("子弹数量：" + bulletList.size(), 10, 50);
+        g.drawString("x坐标：" + tank.getX(), 10, 70);
+        g.drawString("y坐标：" + tank.getY(), 10, 90);
+        g.setColor(color);
+
        tank.paint(g);
-       bullet.paint(g);
+       for (int i = 0; i < bulletList.size(); i++) {
+           bulletList.get(i).paint(g);
+           if (bulletList.get(i).getX() < 0 || bulletList.get(i).getY() < 20 ||  //清除子弹，防止内存泄漏
+                   bulletList.get(i).getX() > WIDTH || bulletList.get(i).getY() > HEIGHT) {
+               bulletList.remove(i);
+           }
+       }
     }
 
     //键盘监听

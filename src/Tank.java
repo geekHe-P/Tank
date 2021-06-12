@@ -1,6 +1,14 @@
 import java.awt.*;
 
 public class Tank {
+    public int getX() {
+        return x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
     private int x;
     private int y;
     private static final int SPEED = 10;
@@ -25,10 +33,7 @@ public class Tank {
     }
 
     public void paint(Graphics g) {
-        Color color = g.getColor();
-        g.setColor(Color.YELLOW);
-        g.fillRect(x, y, 50, 50);
-        g.setColor(color);
+        g.drawImage(ResourceImage.tankD, x, y, null);
 
         if (!moving) return;
         move();
@@ -54,6 +59,6 @@ public class Tank {
     }
 
     public void fire() {
-        tankFrame.bullet = new Bullet(this.x, this.y, this.dir);
+        tankFrame.bulletList.add(new Bullet(this.x, this.y, this.dir));
     }
 }
