@@ -1,0 +1,55 @@
+import java.awt.*;
+
+public class Tank {
+    int x;
+    int y;
+    private static final int SPEED = 10;
+    private Dir dir = Dir.DOWN;
+
+    public boolean isMoving() {
+        return moving;
+    }
+
+    public void setMoving(boolean moving) {
+        this.moving = moving;
+    }
+
+    private boolean moving = false;
+
+    public Dir getDir() {
+        return dir;
+    }
+
+    public void setDir(Dir dir) {
+        this.dir = dir;
+    }
+
+    public Tank(int x, int y, Dir dir) {
+        this.x = x;
+        this.y = y;
+        this.dir = dir;
+    }
+
+    public void paint(Graphics g) {
+        g.fillRect(x, y, 50, 50);
+
+        if (!moving) return;
+        switch (dir) {
+            case UP:
+                y -= SPEED;
+                break;
+            case DOWN:
+                y += SPEED;
+                break;
+            case LEFT:
+                x -= SPEED;
+                break;
+            case RIGHT:
+                x += SPEED;
+                break;
+            default:
+                break;
+        }
+    }
+
+}
