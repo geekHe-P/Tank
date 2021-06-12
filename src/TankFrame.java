@@ -9,23 +9,22 @@ public class TankFrame extends Frame {
     boolean bD = false;
     Dir dir = Dir.DOWN;
 
+    private static final int WIDTH = 800;
+    private static final int HEIGHT = 600;
+
     Tank tank = new Tank(200, 200, dir);
     Bullet bullet = new Bullet(30, 30, dir);
 
+    //新建窗口
     public TankFrame() {
-       setSize(800,600);
-       setResizable(false);
+       setSize(WIDTH,HEIGHT);
+       setResizable(false);  //不可缩放
        setTitle("TankWar");
        setVisible(true);
 
-        System.out.println("sadf");
-        System.out.println("sadf");
-        System.out.println("sadf");
-        System.out.println("sadf");
-
        addKeyListener(new MyKeyListener());
 
-       addWindowListener(new WindowAdapter() {
+       addWindowListener(new WindowAdapter() {  //关闭窗口
             @Override
             public void windowClosing(WindowEvent e) {
                 System.exit(0);
@@ -33,15 +32,33 @@ public class TankFrame extends Frame {
         });
     }
 
+    //双缓冲解决闪烁问题
+    Image offScreenImage = null;
+    @Override
+    public void update(Graphics g) {
+        if (offScreenImage == null) {
+            offScreenImage = this.createImage(WIDTH, HEIGHT);
+        }
+        Graphics gOffScreen = offScreenImage.getGraphics();
+        Color c = gOffScreen.getColor();
+        gOffScreen.setColor(Color.BLACK);
+        gOffScreen.fillRect(0, 0, WIDTH, HEIGHT);
+        gOffScreen.setColor(c);
+        paint(gOffScreen);
+        g.drawImage(offScreenImage, 0, 0, null);
+    }
+
+    //绘画坦克和子弹
     @Override
     public void paint(Graphics g) {
        tank.paint(g);
        bullet.paint(g);
     }
 
+    //键盘监听
     class MyKeyListener extends KeyAdapter {
         @Override
-        public void keyPressed(KeyEvent e) {
+        public void keyPressed(KeyEvent e) {  //按下键盘
             switch (e.getKeyCode()) {
                 case KeyEvent.VK_LEFT:
                     bL = true;
@@ -62,7 +79,7 @@ public class TankFrame extends Frame {
         }
 
         @Override
-        public void keyReleased(KeyEvent e) {
+        public void keyReleased(KeyEvent e) {  //弹起键盘
             switch (e.getKeyCode()) {
                 case KeyEvent.VK_LEFT:
                     bL = false;
@@ -82,7 +99,7 @@ public class TankFrame extends Frame {
             setMainTankDir();
         }
 
-        private void setMainTankDir() {
+        private void setMainTankDir() {  //建立主坦克方向
             if (!bL && !bD && !bR && !bU)
                 tank.setMoving(false);
             else {
