@@ -1,8 +1,8 @@
 import java.awt.*;
 
 public class Tank {
-    int x;
-    int y;
+    private int x;
+    private int y;
     private static final int SPEED = 10;
     private Dir dir = Dir.DOWN;
 
@@ -34,6 +34,10 @@ public class Tank {
         g.fillRect(x, y, 50, 50);
 
         if (!moving) return;
+        move();
+    }
+
+    private void move() {
         switch (dir) {
             case UP:
                 y -= SPEED;
