@@ -33,7 +33,7 @@ public class Tank {
     }
 
     public void paint(Graphics g) {
-        g.drawImage(ResourceImage.tankD, x, y, null);
+        g.drawImage(ResourceImage.tankU, x, y, null);
 
         if (!moving) return;
         move();
