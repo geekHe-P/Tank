@@ -9,6 +9,7 @@ public class ResourceImage {
     public static BufferedImage tankU;
     public static BufferedImage tankD;
     public static BufferedImage tankR;
+    public static BufferedImage bullet;
 
     static {
         try {
@@ -16,6 +17,7 @@ public class ResourceImage {
             tankL = ImageIO.read(Objects.requireNonNull(ResourceImage.class.getClassLoader().getResourceAsStream("Image/p1tankL.gif")));
             tankU = ImageIO.read(Objects.requireNonNull(ResourceImage.class.getClassLoader().getResourceAsStream("Image/p1tankU.gif")));
             tankR = ImageIO.read(Objects.requireNonNull(ResourceImage.class.getClassLoader().getResourceAsStream("Image/p1tankR.gif")));
+            bullet = ImageIO.read(Objects.requireNonNull(ResourceImage.class.getClassLoader().getResourceAsStream("Image/bullet.gif")));
         } catch (IOException e) {
             e.printStackTrace();
         }
