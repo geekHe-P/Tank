@@ -13,8 +13,9 @@ public class TankFrame extends Frame {
     private static final int WIDTH = 800;
     private static final int HEIGHT = 600;
 
-    Tank tank = new Tank(200, 200, dir, this);
+    Tank tank = new Tank(200, 400, dir, this);
     ArrayList<Bullet> bulletList = new ArrayList<Bullet>();
+    ArrayList<Tank> tankList = new ArrayList<Tank>();
     //Bullet bullet = new Bullet(30, 30, dir);
 
     //新建窗口
@@ -61,19 +62,26 @@ public class TankFrame extends Frame {
         g.setColor(color);
 
        tank.paint(g);
-       for (int i = 0; i < bulletList.size(); i++) {
-           bulletList.get(i).paint(g);
-           if (bulletList.get(i).getX() < 0 || bulletList.get(i).getY() < 20 ||  //清除子弹，防止内存泄漏
-                   bulletList.get(i).getX() > WIDTH || bulletList.get(i).getY() > HEIGHT) {
-               bulletList.remove(i);
-           }
-       }
+        for (int i = 0; i < bulletList.size(); i++) {
+            bulletList.get(i).paint(g);
+        }
+
+        for (int i = 0; i < tankList.size(); i++) {
+            tankList.get(i).paint(g);
+        }
+
+        for (Bullet bullet : bulletList){
+            for (Tank tank : tankList){
+                bullet.collideWith(tank);
+            }
+        }
     }
 
     //键盘监听
     class MyKeyListener extends KeyAdapter {
+        //按下键盘
         @Override
-        public void keyPressed(KeyEvent e) {  //按下键盘
+        public void keyPressed(KeyEvent e) {
             switch (e.getKeyCode()) {
                 case KeyEvent.VK_LEFT:
                     bL = true;
@@ -93,8 +101,9 @@ public class TankFrame extends Frame {
             setMainTankDir();
         }
 
+        //弹起键盘
         @Override
-        public void keyReleased(KeyEvent e) {  //弹起键盘
+        public void keyReleased(KeyEvent e) {
             switch (e.getKeyCode()) {
                 case KeyEvent.VK_LEFT:
                     bL = false;
@@ -117,7 +126,8 @@ public class TankFrame extends Frame {
             setMainTankDir();
         }
 
-        private void setMainTankDir() {  //建立主坦克方向
+        //建立主坦克方向
+        private void setMainTankDir() {
             if (!bL && !bD && !bR && !bU)
                 tank.setMoving(false);
             else {
@@ -132,5 +142,6 @@ public class TankFrame extends Frame {
                     tank.setDir(Dir.UP);
             }
         }
+
     }
 }

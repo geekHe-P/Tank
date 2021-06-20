@@ -11,7 +11,9 @@ public class Tank {
 
     private int x;
     private int y;
-    private static final int SPEED = 5;
+    private boolean live = true;
+
+    private static final int SPEED = 8;
     private Dir dir;
     TankFrame tankFrame = null;
 
@@ -32,7 +34,12 @@ public class Tank {
         this.tankFrame = tankFrame;
     }
 
+    //绘画
     public void paint(Graphics g) {
+        if (!live) {
+            tankFrame.tankList.remove(this);
+        }
+
         switch (dir) {
             case UP:
                 g.drawImage(ResourceImage.tankU, x, y, null);
@@ -52,6 +59,7 @@ public class Tank {
         move();
     }
 
+    //移动
     private void move() {
         switch (this.dir) {
             case UP:
@@ -64,6 +72,7 @@ public class Tank {
                 x -= SPEED;
                 break;
             case RIGHT:
+
                 x += SPEED;
                 break;
             default:
@@ -71,7 +80,13 @@ public class Tank {
         }
     }
 
+    //开火
     public void fire() {
-        tankFrame.bulletList.add(new Bullet(this.x, this.y, this.dir));
+        tankFrame.bulletList.add(new Bullet(this.x, this.y, this.dir, tankFrame));
+    }
+
+    //死亡判断
+    public void die() {
+        live = false;
     }
 }
