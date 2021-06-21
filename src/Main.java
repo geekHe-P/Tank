@@ -4,7 +4,7 @@ public class Main {
 
         //初始化敌人坦克
         for (int i = 0; i < 5; i++) {
-            tankFrame.tankList.add(new Tank(50 + i * 100, 200, Dir.DOWN, tankFrame));
+            tankFrame.tankList.add(new Tank(50 + i * 100, 200, Dir.DOWN, tankFrame, Group.BAD));
         }
 
         while (true) {

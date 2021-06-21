@@ -1,4 +1,5 @@
 import java.awt.*;
+import java.util.Random;
 
 public class Tank {
     public int getX() {
@@ -12,6 +13,14 @@ public class Tank {
     private int x;
     private int y;
     private boolean live = true;
+    private boolean moving = true;
+    private Group group = Group.BAD;
+
+    private Random random = new  Random();
+
+    public Group getGroup() {
+        return group;
+    }
 
     private static final int SPEED = 8;
     private Dir dir;
@@ -21,16 +30,15 @@ public class Tank {
         this.moving = moving;
     }
 
-    private boolean moving = false;
-
     public void setDir(Dir dir) {
         this.dir = dir;
     }
 
-    public Tank(int x, int y, Dir dir, TankFrame tankFrame) {
+    public Tank(int x, int y, Dir dir, TankFrame tankFrame, Group group) {
         this.x = x;
         this.y = y;
         this.dir = dir;
+        this.group = group;
         this.tankFrame = tankFrame;
     }
 
@@ -72,17 +80,17 @@ public class Tank {
                 x -= SPEED;
                 break;
             case RIGHT:
-
                 x += SPEED;
                 break;
             default:
                 break;
         }
+        if (random.nextInt(10) > 8) this.fire();
     }
 
     //开火
     public void fire() {
-        tankFrame.bulletList.add(new Bullet(this.x, this.y, this.dir, tankFrame));
+        tankFrame.bulletList.add(new Bullet(this.x, this.y, this.dir, tankFrame, this.group));
     }
 
     //死亡判断

@@ -11,9 +11,9 @@ public class TankFrame extends Frame {
     Dir dir = Dir.DOWN;
 
     private static final int WIDTH = 800;
-    private static final int HEIGHT = 600;
+    private static final int HEIGHT = 1000;
 
-    Tank tank = new Tank(200, 400, dir, this);
+    Tank tank = new Tank(200, 400, dir, this, Group.GOOD);
     ArrayList<Bullet> bulletList = new ArrayList<Bullet>();
     ArrayList<Tank> tankList = new ArrayList<Tank>();
     //Bullet bullet = new Bullet(30, 30, dir);

@@ -13,6 +13,7 @@ public class Bullet {
     private int y;
     public TankFrame tankFrame;
     private boolean live = true;
+    private Group group = Group.BAD;
 
     private final int tankWidth = ResourceImage.tankD.getWidth();
     private final int tankHeight = ResourceImage.tankD.getHeight();
@@ -23,10 +24,11 @@ public class Bullet {
     private static final int HEIGHT = 10;
     private static final int SPEED = 15;
 
-    public Bullet(int x, int y, Dir dir, TankFrame tankFrame) {
+    public Bullet(int x, int y, Dir dir, TankFrame tankFrame, Group group) {
         this.x = x;
         this.y = y;
         this.dir = dir;
+        this.group = group;
         this.tankFrame = tankFrame;
     }
 
@@ -80,6 +82,7 @@ public class Bullet {
 
     //碰撞检测
     public void collideWith(Tank tank) {
+        if (this.group == tank.getGroup()) return;
         Rectangle rectangle1 = null;
         switch (dir) {
             case UP:
